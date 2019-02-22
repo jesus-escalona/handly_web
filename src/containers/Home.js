@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Container, Dropdown, Header, Search, Button, Grid, Segment} from "semantic-ui-react";
 import SearchPlaces from "../components/SearchPlaces";
 import {moveOptions} from "../moveOptions";
@@ -6,12 +6,13 @@ import {moveOptions} from "../moveOptions";
 class Home extends Component {
     render() {
         return (
-            <Container fluid>
-                <Segment
-                    textAlign='center'
-                    style={{ minHeight: 300, padding: '1em 0em' }}
-                    vertical
-                >
+            <Container fluid className='heading'>
+                <video autoPlay loop id="video-background" muted plays-inline>
+                    <source
+                        src={require("../assets/videos/trucks.mp4")}
+                        type="video/mp4"/>
+                </video>
+                <Container fluid>
                     <Header as='h1'>We will handle it for you.</Header>
                     <br/>
                     <Grid columns='equal'>
@@ -27,7 +28,7 @@ class Home extends Component {
                     </Grid>
                     <br/>
                     <Button className='estimate' size='huge'>Get me an estimate</Button>
-                </Segment>
+                </Container>
             </Container>
         );
     }

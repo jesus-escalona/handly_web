@@ -3,6 +3,7 @@ import './App.css';
 import NavBar from "./components/NavBar";
 import {Redirect, Route, Switch} from "react-router-dom";
 import Home from "./containers/Home";
+import Footer from "./components/Footer";
 
 class App extends Component {
 
@@ -81,6 +82,8 @@ class App extends Component {
                     )
                     }/>
                 </Switch>
+                <br/>
+                <Footer/>
             </div>
         );
     }
