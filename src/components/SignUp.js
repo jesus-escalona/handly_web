@@ -1,5 +1,7 @@
-import {Message, Button, Form, Modal, Icon, Label} from "semantic-ui-react";
+import {Message, Button, Form, Modal, Icon, Label, Header} from "semantic-ui-react";
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import {signUpUser} from "../actions/clientThunks";
 
 class Signup extends Component {
 
@@ -17,29 +19,31 @@ class Signup extends Component {
 
     submitHandler = (e) => {
         e.preventDefault();
-        this.props.submitHandler(e, this.state);
-        this.setState({
-            name: "",
-            email: "",
-            password: ""
-        })
+        this.props.signUpUser(this.state)
     }
 
     render() {
+        const messages = this.props.messages.map((message, index) => (
+                <Message key={index} negative>
+                    <Message.Header>{message}</Message.Header>
+                </Message>
+            )
+        )
         return (
-            <Modal size="small" trigger={<Button positive>Sign Up</Button>}>
-                <Modal.Header>User Sign Up</Modal.Header>
+            <Modal centered size="tiny" trigger={<Button className='signup' >Sign Up</Button>} onClose={() => this.setState({name: '', email: '', password: ''})}>
+                <Modal.Header>
+                    <Header textAlign='center' as='h2'>
+                        Sign up
+                    </Header>
+                </Modal.Header>
                 <Modal.Content>
-                    {this.props.message &&
-                    <Message negative>
-                        <Message.Header>{this.props.message}</Message.Header>
-                    </Message>}
+                    {messages}
                     <Form onSubmit={this.submitHandler}>
                         <Label pointing="below">Name:</Label>
                         <Form.Input
                             type="text"
                             name="name"
-                            placeholder="name"
+                            placeholder="Name is required"
                             value={this.state.name}
                             onChange={this.changeHandler}
                         />
@@ -47,7 +51,7 @@ class Signup extends Component {
                         <Form.Input
                             type="email"
                             name="email"
-                            placeholder="email"
+                            placeholder="Email is required"
                             value={this.state.email}
                             onChange={this.changeHandler}
                         />
@@ -56,16 +60,18 @@ class Signup extends Component {
                         <Form.Input
                             type="password"
                             name="password"
-                            placeholder="password"
+                            placeholder="6 characters or more"
                             value={this.state.password}
                             onChange={this.changeHandler}
                         />
 
-                        <br></br><br></br>
+                        <br></br>
                         <Modal.Actions>
-                            <Button color='green' inverted center>
-                                <Icon name='checkmark' /> Sign Up
+                            <Button positive fluid floated={'right'}>
+                                <Icon name='checkmark' /> Create Account
                             </Button>
+                            <br/>
+                            <br/>
                         </Modal.Actions>
                     </Form>
                 </Modal.Content>
@@ -74,4 +80,10 @@ class Signup extends Component {
     }
 }
 
-export default Signup
+const mapStateToProps = (state) => (
+    {
+        messages: state.messages
+    }
+);
+
+export default connect(mapStateToProps, {signUpUser})(Signup)

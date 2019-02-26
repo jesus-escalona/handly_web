@@ -1,84 +1,47 @@
 import React, { Component } from 'react';
+import {Redirect, Route, Switch} from "react-router-dom";
+import { connect } from 'react-redux'
+
 import './App.css';
 import NavBar from "./components/NavBar";
-import {Redirect, Route, Switch} from "react-router-dom";
 import Home from "./containers/Home";
 import Footer from "./components/Footer";
+import Profile from "./containers/Profile";
+import {getUserData, getCompaniesData} from "./actions/clientThunks";
 
 class App extends Component {
 
     state = {
-        user: {},
-        message: ''
-    }
+        reviews: []
+    };
 
     componentDidMount() {
+        this.getReviews();
+        //this.props.getCompaniesData();
         let token = localStorage.getItem("jwt");
-        if (token) {
-            //fetch user data.
-        }
+        if(token) this.props.getUserData(token)
     }
 
-    createUser = (e, userObj) => {
-        const { name, email, password } = userObj
-        fetch("http://localhost:3000/api/v1/users", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                Accepts: "application/json"
-            },
-            body: JSON.stringify({ name, email, password, country_code: this.state.countryCode })
-        })
+    getReviews = () => {
+        return fetch("http://localhost:3000/api/v1/reviews")
             .then(resp => resp.json())
-            .then(this.setUserData)
-    };
-
-    setUserData = (data) => {
-        if(data.message) {
-            this.setState({message: data.message})
-        } else {
-            this.setState({user: data.user, message: ''});
-            localStorage.setItem('jwt', data.jwt);
-        }
-    }
-
-    loginUser = userObj => {
-        const { email, password } = userObj
-        fetch("http://localhost:3000/api/v1/login", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                Accepts: "application/json"
-            },
-            body: JSON.stringify({ user: { email, password } })
-        })
-            .then(resp => resp.json())
-            .then(this.setUserData)
-    };
-
-    logout = () => {
-        localStorage.removeItem('jwt')
-        this.setState({user: {}})
+            .then(data => this.setState({reviews: data.reviews.data}));
     }
 
     render() {
-        const { user, message } = this.state;
-        const userExists = Object.keys(user).length > 0
+        const { reviews } = this.state;
+        const userExists = Object.keys(this.props.user).length > 0
         return (
             <div className="App">
-                <NavBar
-                    user={user}
-                    message={message}
-                    loginUser={this.loginUser}
-                    logout={this.logout}
-                    createUser={this.createUser}
-                    setUserData={this.setUserData}
-                />
+                <NavBar/>
                 <br/>
                 <Switch>
-                    <Route exact path='/'  render={() => <Home />}/>
+                    <Route exact path='/'  render={() => (
+                        <Home {...this.state}/>
+                    )
+                    }/>
                     <Route exact path='/profile' render={() => (
-                        userExists ? <Home user={user}/> : <Redirect to="/"/>
+                        userExists ? <Profile {...this.state} /> : <Redirect to="/"/>
                     )
                     }/>
                 </Switch>
@@ -89,4 +52,11 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = (state) => (
+    {
+        user: state.user,
+        movers: state.movers
+    }
+);
+
+export default connect(mapStateToProps, {getUserData, getCompaniesData})(App);

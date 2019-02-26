@@ -1,12 +1,47 @@
+/*
+#5A4FF3 purple
+#E62BC6 fuchsia
+#FF438E pink
+#FF8460 orange
+#FFC34E almost yellow
+#F9F871 yellow
+*/
+
+html * {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .App {
   min-height: 100vh;
   text-align: center;
-  padding: 2rem;
+  padding: 1rem;
+  background: #5A4FF3;
+}
+
+.ui.button.signup {
+  background: #E62BC6;
+  color: white;
+}
+
+a.brand {
+  font-size: 40px;
+  color: white;
+  font-weight: 700;
 }
 
 .ui.menu:first-child {
-  background: white;
-  margin: 1rem;
+  background: transparent;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.ui.fluid.container.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .ui.button.estimate {
@@ -20,15 +55,36 @@
   z-index: -100;
 }
 .ui.fluid.container.heading {
+  border-radius: .3rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
   position: relative;
   overflow: hidden;
   height: 600px;
   max-width: 400px;
 }
-.ui.fluid.container.heading > .ui.fluid.container {
+
+.ui.fluid.container.options {
   position: absolute;
   top: 8rem;
   left: 0;
-  padding: 2rem;
-  background-color: rgba(255, 255, 255, 0.56);
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 4rem 2rem 4rem;
+  background-color: rgba(255, 255, 255);
+  width: fit-content;
+  box-shadow: 0 2px 4px 0 rgba(34,36,38,.12), 0 2px 10px 0 rgba(34,36,38,1);
+  border-radius: .28571429rem;
+  border: 1px solid rgba(34,36,38,.15);
+}
+
+a.loggedUserButton {
+  color: white;
+}
+
+.ui.header.heroTitle {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #5A4FF3  ;
 }

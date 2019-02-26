@@ -1,18 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {applyMiddleware, combineReducers, createStore} from 'redux'
+import {applyMiddleware, combineReducers, createStore, compose} from 'redux'
 import { Provider } from 'react-redux'
 import thunk from "redux-thunk";
 import { BrowserRouter as Router } from 'react-router-dom'
-
-import 'semantic-ui-css/semantic.min.css'
-import './index.css';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {clientReducer} from "./Reducers/clientsReducer";
 
-const store = createStore(clientReducer, applyMiddleware(thunk));
+const store = createStore(clientReducer, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 
 ReactDOM.render(
     <Provider store={store}>

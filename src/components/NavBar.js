@@ -1,51 +1,72 @@
 import React, { Component, Fragment } from 'react'
-import {Button, Container, Image, Menu, Label, Header, Grid} from 'semantic-ui-react'
-import Login from "./Login";
-import Signup from "./SignUp";
+import { connect } from 'react-redux'
 import {NavLink} from "react-router-dom";
 
-export default class NavBar extends Component {
+import {Button, Container, Image, Menu, Label, Header, Grid, Segment} from 'semantic-ui-react'
+import Login from "./Login";
+import SignUp from "./SignUp";
+import {setUserData} from "../actions/clientActions";
+
+class NavBar extends Component {
     state = { activeItem: 'home' };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
+    logOut = () => {
+        localStorage.removeItem('jwt');
+        this.props.setUserData({})
+    };
+
     render() {
         const { activeItem } = this.state;
-        const userExists = false
+        const { user } = this.props;
+        const userExists = Object.keys(user).length > 0
         return (
             <Container fluid className='navbar'>
-                <Menu secondary>
-                    {/*<Menu.Item as='a'>
+                    <Menu secondary>
+                        {/*<Menu.Item as='a'>
                         <Image src={require('../assets/images/truck_inverted.png')} size='mini'/>
                     </Menu.Item>*/}
-                    <Menu.Item>
-                        <Header as='h2'>
-                            <NavLink style={{fontSize: 40,color: '#5A4FF3', fontWeight: 800}} to="/">Handly</NavLink>
-                        </Header>
-                    </Menu.Item>
-                    {
-                        userExists ?
-                            <Menu.Item position='right'>
-                                <Label
-                                    color='black'
-                                    size='big'
-                                    content={<NavLink to="/profile">{`Welcome back, ${this.props.user.data.attributes.name}`}</NavLink>}
-                                    image={{avatar: true, spaced: 'right', src: require('../assets/images/avatar.png')}}
-                                />
-                                <Button icon='sign-out' floated='right' label='Logout' labelPosition='left' onClick={this.props.logout} />
-                            </Menu.Item>
-                            :
-                            <Fragment>
-                                <Menu.Item position='right'>
-                                    <Login message={this.props.message} submitHandler={this.props.loginUser}/>
-                                </Menu.Item>
-                                <Menu.Item>
-                                    <Signup message={this.props.message} submitHandler={this.props.createUser} />
-                                </Menu.Item>
-                            </Fragment>
-                    }
-                </Menu>
+                        <Menu.Item>
+                            <Header as='h2'>
+                                <NavLink className='brand' to="/">Handly</NavLink>
+                            </Header>
+                        </Menu.Item>
+                        {
+                            userExists ?
+                                <Fragment>
+                                    <Menu.Item position='right'>
+                                        <Image avatar circular size='mini' src={user.attributes.avatar}/>
+                                        <Button
+                                            floated='right'
+                                            content={<NavLink className='loggedUserButton' to="/profile">{`Hello, ${user.attributes.name}`}</NavLink>}
+                                            labelPosition='left'
+                                        />
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        <Button icon='sign-out' floated='right' label='Logout' labelPosition='left' onClick={this.logOut} />
+                                    </Menu.Item>
+                                </Fragment>
+                                :
+                                <Fragment>
+                                    <Menu.Item position='right'>
+                                        <Login submitHandler={this.props.loginUser}/>
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        <SignUp submitHandler={this.props.createUser} />
+                                    </Menu.Item>
+                                </Fragment>
+                        }
+                    </Menu>
             </Container>
         )
     }
 }
+
+const mapStateToProps = (state) => (
+    {
+        user: state.user
+    }
+);
+
+export default connect(mapStateToProps, {setUserData})(NavBar)

@@ -1,5 +1,7 @@
-import {Message, Button, Form, Modal, Icon, Label} from "semantic-ui-react";
+import {Message, Button, Form, Modal, Icon, Label, Header} from "semantic-ui-react";
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import {loginUser} from "../actions/clientThunks";
 
 class Login extends Component {
 
@@ -16,23 +18,25 @@ class Login extends Component {
 
     submitHandler = e => {
         e.preventDefault();
-        this.props.submitHandler(this.state);
-        this.setState({
-            email: "",
-            password: ""
-        })
+        this.props.loginUser(this.state);
     }
 
     render() {
-
+        const messages = this.props.messages.map((message, index) => (
+                <Message key={index} negative>
+                    <Message.Header>{message}</Message.Header>
+                </Message>
+            )
+        )
         return (
-            <Modal size="small" trigger={<Button basic >Log in</Button>}>
-                <Modal.Header>User Log in</Modal.Header>
+            <Modal centered size="tiny" trigger={<Button className='login' >Log in</Button>} onClose={() => this.setState({email: '', password: ''})}>
+                <Modal.Header>
+                    <Header textAlign='center' as='h2'>
+                        Log in
+                    </Header>
+                </Modal.Header>
                 <Modal.Content>
-                    {this.props.message &&
-                    <Message negative>
-                        <Message.Header>{this.props.message}</Message.Header>
-                    </Message>}
+                    {messages}
                     <Form onSubmit={this.submitHandler}>
                         <Label pointing="below">Email:</Label>
                         <Form.Input
@@ -42,8 +46,6 @@ class Login extends Component {
                             value={this.state.email}
                             onChange={this.changeHandler}
                         />
-
-
                         <Label pointing="below">Password:</Label>
                         <Form.Input
                             type="password"
@@ -52,12 +54,14 @@ class Login extends Component {
                             value={this.state.password}
                             onChange={this.changeHandler}
                         />
-                        <br></br><br></br>
+                        <br></br>
 
                         <Modal.Actions>
-                            <Button color='green' inverted>
-                                <Icon name='checkmark' /> Log in
+                            <Button positive fluid floated={'right'}>
+                                <Icon name='checkmark' /> Enter
                             </Button>
+                            <br/>
+                            <br/>
                         </Modal.Actions>
                     </Form>
 
@@ -68,4 +72,10 @@ class Login extends Component {
     }
 }
 
-export default Login
+const mapStateToProps = (state) => (
+    {
+        messages: state.messages
+    }
+);
+
+export default connect(mapStateToProps, {loginUser})(Login)
