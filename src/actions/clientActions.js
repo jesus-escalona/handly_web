@@ -18,3 +18,11 @@ export const setMessages = (messages) => (
         payload: messages
     }
 );
+
+export const setLocationData = (location, location_type) => (
+    {
+        type: 'SET_LOCATION_DATA',
+        payload: location,
+        location_type
+    }
+);

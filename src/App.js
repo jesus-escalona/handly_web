@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar";
 import Home from "./containers/Home";
 import Footer from "./components/Footer";
 import Profile from "./containers/Profile";
-import {getUserData, getCompaniesData} from "./actions/clientThunks";
+import {getUserData} from "./actions/clientThunks";
 
 class App extends Component {
 
@@ -59,4 +59,4 @@ const mapStateToProps = (state) => (
     }
 );
 
-export default connect(mapStateToProps, {getUserData, getCompaniesData})(App);
+export default connect(mapStateToProps, {getUserData})(App);
