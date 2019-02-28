@@ -1,4 +1,4 @@
-import { setUserData, setCompaniesData, setMessages } from './clientActions'
+import { setUserData, setCompaniesData, setMessages, setEstimateData } from './clientActions'
 import { getData } from "../helpers/Adapter";
 
 export const getUserData = (token) => {
@@ -15,7 +15,13 @@ export const signUpUser = (userObj) => {
 };
 
 export const getEstimate = (moveObj) => {
-    return dispatch => getData.post('estimate', null, moveObj).then(console.log)
+    return dispatch => getData.post('estimate', null, moveObj).then(data => {
+        if (data.hasOwnProperty('error')) {
+            return data
+        } else {
+            dispatch(setEstimateData(data.moving_estimate.data))
+        }
+    })
 };
 
 const handleResponse = (data, dispatch) => {

@@ -3,7 +3,6 @@ import {Container, Dropdown, Header, Button, Grid, Dimmer} from "semantic-ui-rea
 import SearchPlaces from "../components/SearchPlaces";
 import {moveOptions} from "../moveOptions";
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import {NavLink} from "react-router-dom";
 import ReviewsContainer from "./ReviewsContainer";
 import { connect } from 'react-redux'
 import {getEstimate} from "../actions/clientThunks";
@@ -12,7 +11,8 @@ class Home extends Component {
 
     state = {
         moveType: '',
-        loading: false
+        loading: false,
+        error: ''
     };
 
     estimateHandler = (e) => {
@@ -27,13 +27,20 @@ class Home extends Component {
             };
 
             this.props.getEstimate(moveObj)
+                .then(data => {
+                    if(data !== undefined) {
+                        this.setState({error: data.error})
+                    } else {
+                        this.props.history.push('/search')
+                    }
+                })
         }
     };
 
-    handleHide = () => this.setState({ loading: false })
+    handleHide = () => this.setState({ loading: false, error: '' });
 
     render() {
-        const { loading } = this.state;
+        const { loading, error, moveType } = this.state;
         return (
             <Fragment>
                 <Dimmer.Dimmable dimmed={loading}>
@@ -61,6 +68,7 @@ class Home extends Component {
                                     button
                                     icon='truck'
                                     selection
+                                    value={moveType}
                                     options={moveOptions} />
                             </Grid.Column>
                         </Grid>
@@ -79,7 +87,7 @@ class Home extends Component {
                 {/*<CompaniesContainer {...this.props}/>*/}
                 </Dimmer.Dimmable>
                 <Dimmer active={loading} onClickOutside={this.handleHide}>
-                    <Header inverted as={'h1'}>Getting you the best prices...</Header>
+                    <Header inverted as={'h1'}>{error || 'Getting you the best prices...'}</Header>
                     <div className="spinner">
                         <div className="cube1"/>
                         <div className="cube2"/>

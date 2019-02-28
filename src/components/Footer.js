@@ -4,8 +4,8 @@ import {Container, Grid, Header, List, Segment} from "semantic-ui-react";
 class Footer extends Component {
     render() {
         return (
-            <Container fluid>
-                <Segment padded raised>
+            <Container className='footer' fluid>
+                <Segment padded>
                     <Grid divided textAlign='center'>
                         <Grid.Row>
                             <Grid.Column width={8}>

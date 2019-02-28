@@ -26,3 +26,10 @@ export const setLocationData = (location, location_type) => (
         location_type
     }
 );
+
+export const setEstimateData = (movingEstimate) => (
+    {
+        type: 'SET_ESTIMATE_DATA',
+        payload: movingEstimate
+    }
+)

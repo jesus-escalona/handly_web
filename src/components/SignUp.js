@@ -2,6 +2,7 @@ import {Message, Button, Form, Modal, Icon, Label, Header} from "semantic-ui-rea
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {signUpUser} from "../actions/clientThunks";
+import {setMessages} from "../actions/clientActions";
 
 class Signup extends Component {
 
@@ -22,6 +23,11 @@ class Signup extends Component {
         this.props.signUpUser(this.state)
     }
 
+    handleClose = () => {
+        this.setState({name: '', email: '', password: ''});
+        this.props.setMessages([])
+    };
+
     render() {
         const messages = this.props.messages.map((message, index) => (
                 <Message key={index} negative>
@@ -30,7 +36,7 @@ class Signup extends Component {
             )
         )
         return (
-            <Modal centered size="tiny" trigger={<Button className='signup' >Sign Up</Button>} onClose={() => this.setState({name: '', email: '', password: ''})}>
+            <Modal centered size="tiny" trigger={<Button className='signup' >Sign Up</Button>} onClose={this.handleClose}>
                 <Modal.Header>
                     <Header textAlign='center' as='h2'>
                         Sign up
@@ -86,4 +92,4 @@ const mapStateToProps = (state) => (
     }
 );
 
-export default connect(mapStateToProps, {signUpUser})(Signup)
+export default connect(mapStateToProps, {signUpUser, setMessages})(Signup)

@@ -19,6 +19,8 @@ export const clientReducer = (state = initialState, action) => {
         case "SET_LOCATION_DATA":
             const { administrative, latlng, name } = action.payload;
             return { ...state, [action.location_type]: {administrative, latlng, name} };
+        case "SET_ESTIMATE_DATA":
+            return { ...state, selectedMoving: action.payload };
         default:
             return {...state}
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import { connect } from 'react-redux'
 
 import './App.css';
@@ -8,6 +8,7 @@ import Home from "./containers/Home";
 import Footer from "./components/Footer";
 import Profile from "./containers/Profile";
 import {getUserData} from "./actions/clientThunks";
+import SearchPage from "./containers/SearchPage";
 
 class App extends Component {
 
@@ -36,14 +37,15 @@ class App extends Component {
                 <NavBar/>
                 <br/>
                 <Switch>
-                    <Route exact path='/'  render={() => (
-                        <Home {...this.state}/>
+                    <Route exact path='/'  render={(routerProps) => (
+                        <Home { ...this.state}{ ...routerProps }/>
                     )
                     }/>
-                    <Route exact path='/profile' render={() => (
-                        userExists ? <Profile {...this.state} /> : <Redirect to="/"/>
+                    <Route path='/profile' render={() => (
+                        userExists ? <Profile/> : <Redirect to="/"/>
                     )
                     }/>
+                    <Route path='/search' component={SearchPage}/>
                 </Switch>
                 <br/>
                 <Footer/>
@@ -59,4 +61,4 @@ const mapStateToProps = (state) => (
     }
 );
 
-export default connect(mapStateToProps, {getUserData})(App);
+export default withRouter(connect(mapStateToProps, {getUserData})(App));

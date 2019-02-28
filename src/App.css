@@ -14,7 +14,8 @@ html * {
 .App {
   min-height: 100vh;
   text-align: center;
-  padding: 1rem;
+  padding: 5rem 1rem 5rem 1rem ;
+  position: relative;
   background: #5A4FF3;
 }
 
@@ -30,9 +31,7 @@ a.brand {
 }
 
 .ui.menu:first-child {
-  background: transparent;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  background: #5A4FF3;
   padding-bottom: 1rem;
   padding-top: 1rem;
 }
@@ -56,7 +55,6 @@ a.brand {
 }
 .ui.fluid.container.heading {
   border-radius: .3rem;
-  margin-top: 4rem;
   margin-bottom: 4rem;
   position: relative;
   overflow: hidden;
@@ -87,6 +85,17 @@ a.loggedUserButton {
   font-size: 4rem;
   font-weight: 900;
   color: #5A4FF3  ;
+}
+
+.ui.fluid.dropdown {
+  display: flex;
+}
+
+.ui.fluid.container.footer {
+  margin-top: 2rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 /*loading spinner*/

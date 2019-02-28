@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import {Button, Container, Image, Menu, Label, Header, Grid, Segment} from 'semantic-ui-react'
 import Login from "./Login";
@@ -29,7 +29,7 @@ class NavBar extends Component {
                     </Menu.Item>*/}
                         <Menu.Item>
                             <Header as='h2'>
-                                <NavLink className='brand' to="/">Handly</NavLink>
+                                <Link className='brand' to="/">Handly</Link>
                             </Header>
                         </Menu.Item>
                         {
@@ -39,7 +39,7 @@ class NavBar extends Component {
                                         <Image avatar circular size='mini' src={user.attributes.avatar}/>
                                         <Button
                                             floated='right'
-                                            content={<NavLink className='loggedUserButton' to="/profile">{`Hello, ${user.attributes.name}`}</NavLink>}
+                                            content={<Link className='loggedUserButton' to="/profile">{`Hello, ${user.attributes.name}`}</Link>}
                                             labelPosition='left'
                                         />
                                     </Menu.Item>
