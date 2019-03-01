@@ -3,8 +3,24 @@ import {Header, Image, Rating, Segment} from "semantic-ui-react";
 import {CarouselProvider, Slide, Slider} from "pure-react-carousel";
 
 class ReviewsContainer extends Component {
+
+    state = {
+        reviews: []
+    };
+
+    componentDidMount() {
+        this.getReviews();
+    }
+
+    getReviews = () => {
+        return fetch("http://localhost:3000/api/v1/reviews")
+            .then(resp => resp.json())
+            .then(data => this.setState({reviews: data.reviews.data}));
+    };
+
+
     render() {
-        const { reviews, user } = this.props;
+        const { reviews } = this.state;
         return (
             <div>
                 <Header as='h1' inverted>Check what people are saying</Header>

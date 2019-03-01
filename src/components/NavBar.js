@@ -2,15 +2,12 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {Link} from "react-router-dom";
 
-import {Button, Container, Image, Menu, Label, Header, Grid, Segment} from 'semantic-ui-react'
+import {Button, Container, Image, Menu, Header} from 'semantic-ui-react'
 import Login from "./Login";
 import SignUp from "./SignUp";
 import {setUserData} from "../actions/clientActions";
 
 class NavBar extends Component {
-    state = { activeItem: 'home' };
-
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
     logOut = () => {
         localStorage.removeItem('jwt');
@@ -18,7 +15,6 @@ class NavBar extends Component {
     };
 
     render() {
-        const { activeItem } = this.state;
         const { user } = this.props;
         const userExists = Object.keys(user).length > 0
         return (

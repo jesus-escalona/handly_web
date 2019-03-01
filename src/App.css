@@ -14,9 +14,14 @@ html * {
 .App {
   min-height: 100vh;
   text-align: center;
-  padding: 5rem 1rem 5rem 1rem ;
+  padding-top: 7rem;
   position: relative;
   background: #5A4FF3;
+}
+
+.App > *{
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
 
 .ui.button.signup {
@@ -91,13 +96,6 @@ a.loggedUserButton {
   display: flex;
 }
 
-.ui.fluid.container.footer {
-  margin-top: 2rem;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
 /*loading spinner*/
 
 .spinner {
@@ -148,4 +146,20 @@ a.loggedUserButton {
             transform: rotate(-360deg);
             -webkit-transform: rotate(-360deg);
           }
+}
+
+/*Footer*/
+
+.ui.fluid.container.footer {
+    background-color:#ffffff;
+    position: relative;
+    padding: 2rem;
+    margin: 2rem 0 0 0;
+}
+
+/*Profile*/
+
+.ui.transparent.input > input {
+  font-size: larger;
+  color: gray;
 }

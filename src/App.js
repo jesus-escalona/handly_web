@@ -12,42 +12,30 @@ import SearchPage from "./containers/SearchPage";
 
 class App extends Component {
 
-    state = {
-        reviews: []
-    };
-
     componentDidMount() {
-        this.getReviews();
-        //this.props.getCompaniesData();
         let token = localStorage.getItem("jwt");
         if(token) this.props.getUserData(token)
     }
 
-    getReviews = () => {
-        return fetch("http://localhost:3000/api/v1/reviews")
-            .then(resp => resp.json())
-            .then(data => this.setState({reviews: data.reviews.data}));
-    }
-
     render() {
-        const { reviews } = this.state;
-        const userExists = Object.keys(this.props.user).length > 0
+        const { user, selectedMoving } = this.props;
         return (
             <div className="App">
                 <NavBar/>
-                <br/>
                 <Switch>
                     <Route exact path='/'  render={(routerProps) => (
-                        <Home { ...this.state}{ ...routerProps }/>
+                        <Home { ...routerProps }/>
                     )
                     }/>
-                    <Route path='/profile' render={() => (
-                        userExists ? <Profile/> : <Redirect to="/"/>
+                    <Route exact path='/profile' render={(routerProps) => (
+                        Object.keys(user).length > 0 ? <Profile { ...routerProps }/> : <Redirect to="/"/>
                     )
                     }/>
-                    <Route path='/search' component={SearchPage}/>
+                    <Route exact path='/search' render={(routerProps) => (
+                        Object.keys(selectedMoving).length > 0 ? <SearchPage { ...routerProps }/> : <Redirect to="/"/>
+                    )
+                    }/>
                 </Switch>
-                <br/>
                 <Footer/>
             </div>
         );
@@ -57,7 +45,8 @@ class App extends Component {
 const mapStateToProps = (state) => (
     {
         user: state.user,
-        movers: state.movers
+        movers: state.movers,
+        selectedMoving: state.selectedMoving
     }
 );
 

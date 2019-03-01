@@ -1,29 +1,29 @@
 import React, {Component, Fragment} from 'react';
-import {Container, Dropdown, Header, Button, Grid, Dimmer} from "semantic-ui-react";
+import {Container, Header, Button, Grid, Dimmer} from "semantic-ui-react";
 import SearchPlaces from "../components/SearchPlaces";
-import {moveOptions} from "../moveOptions";
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import ReviewsContainer from "./ReviewsContainer";
 import { connect } from 'react-redux'
 import {getEstimate} from "../actions/clientThunks";
+import MoveType from "../components/MoveType";
 
 class Home extends Component {
 
     state = {
-        moveType: '',
         loading: false,
         error: ''
     };
 
     estimateHandler = (e) => {
         e.preventDefault();
-        const { origin, destination } = this.props;
-        if (this.state.moveType.length && Object.keys(origin).length && Object.keys(destination).length) {
+        const { origin, destination, moveType } = this.props;
+        if (moveType.length && Object.keys(origin).length && Object.keys(destination).length) {
             this.setState({ loading: true });
+
             const moveObj = {
                 origin,
                 destination,
-                move_type: this.state.moveType
+                move_type: moveType
             };
 
             this.props.getEstimate(moveObj)
@@ -40,9 +40,16 @@ class Home extends Component {
     handleHide = () => this.setState({ loading: false, error: '' });
 
     render() {
-        const { loading, error, moveType } = this.state;
+        const { loading, error } = this.state;
         return (
             <Fragment>
+                <Dimmer page active={loading} onClickOutside={this.handleHide}>
+                    <Header inverted as={'h1'}>{error || 'Getting you the best prices...'}</Header>
+                    <div className="spinner">
+                        <div className="cube1"/>
+                        <div className="cube2"/>
+                    </div>
+                </Dimmer>
                 <Dimmer.Dimmable dimmed={loading}>
                 <Container fluid className='heading'>
                     <video autoPlay loop id="video-background" muted>
@@ -59,17 +66,7 @@ class Home extends Component {
                                 <br/>
                                 <SearchPlaces type='destination' text='To there'/>
                                 <br/>
-                                <Dropdown
-                                    onChange={(e, data) => this.setState({moveType: data.value})}
-                                    fluid
-                                    className='icon'
-                                    placeholder='Number of items to handle'
-                                    labeled
-                                    button
-                                    icon='truck'
-                                    selection
-                                    value={moveType}
-                                    options={moveOptions} />
+                                <MoveType />
                             </Grid.Column>
                         </Grid>
                         <br/>
@@ -84,15 +81,8 @@ class Home extends Component {
                     </Container>
                 </Container>
                 <ReviewsContainer {...this.props}/>
-                {/*<CompaniesContainer {...this.props}/>*/}
                 </Dimmer.Dimmable>
-                <Dimmer active={loading} onClickOutside={this.handleHide}>
-                    <Header inverted as={'h1'}>{error || 'Getting you the best prices...'}</Header>
-                    <div className="spinner">
-                        <div className="cube1"/>
-                        <div className="cube2"/>
-                    </div>
-                </Dimmer>
+
             </Fragment>
 
         );
@@ -102,7 +92,8 @@ class Home extends Component {
 const mapStateToProps = (state) => (
     {
         origin: state.origin,
-        destination: state.destination
+        destination: state.destination,
+        moveType: state.moveType
     }
 );
 

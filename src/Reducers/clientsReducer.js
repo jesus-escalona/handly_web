@@ -5,7 +5,8 @@ const initialState = {
     messages: [],
     origin: {},
     destination: {},
-    selectedMoving: {}
+    selectedMoving: {},
+    moveType: ''
 };
 
 export const clientReducer = (state = initialState, action) => {
@@ -17,8 +18,10 @@ export const clientReducer = (state = initialState, action) => {
         case "SET_MESSAGES":
             return { ...state, messages: action.payload };
         case "SET_LOCATION_DATA":
-            const { administrative, latlng, name } = action.payload;
-            return { ...state, [action.location_type]: {administrative, latlng, name} };
+            const { administrative, latlng, name, value } = action.payload;
+            return { ...state, [action.location_type]: {administrative, latlng, name, value} };
+        case "SET_MOVE_TYPE_DATA":
+            return { ...state, moveType: action.payload};
         case "SET_ESTIMATE_DATA":
             return { ...state, selectedMoving: action.payload };
         default:

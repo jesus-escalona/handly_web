@@ -19,6 +19,7 @@ export const getEstimate = (moveObj) => {
         if (data.hasOwnProperty('error')) {
             return data
         } else {
+            dispatch(setCompaniesData(data.companies.data));
             dispatch(setEstimateData(data.moving_estimate.data))
         }
     })
