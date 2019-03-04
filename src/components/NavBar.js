@@ -32,6 +32,7 @@ class NavBar extends Component {
                             userExists ?
                                 <Fragment>
                                     <Menu.Item position='right'>
+                                    <Link to="/search">search</Link>
                                         <Image avatar circular size='mini' src={user.attributes.avatar}/>
                                         <Button
                                             floated='right'

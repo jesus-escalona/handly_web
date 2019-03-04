@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
-import {moveOptions} from "../moveOptions";
 import {Dropdown} from "semantic-ui-react";
 import { connect } from 'react-redux'
 import {setMoveTypeData} from "../actions/clientActions";
+import {getMoveTypes} from "../actions/clientThunks";
 
 class MoveType extends Component {
 
     handleDropdown = (e, data) => {
         this.props.setMoveTypeData(data.value)
     };
+
+    componentDidMount() {
+        this.props.getMoveTypes()
+
+    }
 
     render() {
         return (
@@ -22,7 +27,7 @@ class MoveType extends Component {
                 icon='truck'
                 selection
                 value={this.props.moveType}
-                options={moveOptions}
+                options={this.props.moveTypes}
             />
         );
     }
@@ -30,8 +35,9 @@ class MoveType extends Component {
 
 const mapStateToProps = (state) => (
     {
-        moveType: state.moveType
+        moveType: state.moveType,
+        moveTypes: state.moveTypes
     }
 );
 
-export default connect(mapStateToProps, { setMoveTypeData })(MoveType);
+export default connect(mapStateToProps, { setMoveTypeData, getMoveTypes })(MoveType);

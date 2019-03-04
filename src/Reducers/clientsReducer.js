@@ -1,3 +1,5 @@
+import MoveType from "../components/MoveType";
+
 const initialState = {
     user: {},
     movings: [],
@@ -6,7 +8,8 @@ const initialState = {
     origin: {},
     destination: {},
     selectedMoving: {},
-    moveType: ''
+    moveType: '',
+    moveTypes: []
 };
 
 export const clientReducer = (state = initialState, action) => {
@@ -24,6 +27,9 @@ export const clientReducer = (state = initialState, action) => {
             return { ...state, moveType: action.payload};
         case "SET_ESTIMATE_DATA":
             return { ...state, selectedMoving: action.payload };
+        case "SET_MOVE_TYPES":
+            const moveTypes = action.payload.map(moveType => moveType.attributes);
+            return { ...state, moveTypes  };
         default:
             return {...state}
     }

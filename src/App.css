@@ -7,9 +7,7 @@
 #F9F871 yellow
 */
 
-html * {
-  font-family: 'Montserrat', sans-serif;
-}
+
 
 .App {
   min-height: 100vh;
@@ -88,7 +86,7 @@ a.loggedUserButton {
 
 .ui.header.heroTitle {
   font-size: 4rem;
-  font-weight: 900;
+  font-weight: 500;
   color: #5A4FF3  ;
 }
 

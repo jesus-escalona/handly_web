@@ -9,7 +9,7 @@ class MoverRow extends Component {
                     {mover.attributes.company_name}
                 </Grid.Column>
                 <Grid.Column>
-                    <Rating icon='star' size='huge' defaultRating={mover.attributes.average_rating} maxRating={5} />
+                    <Rating icon='star' disabled size='huge' defaultRating={mover.attributes.average_rating} maxRating={5} />
                 </Grid.Column>
                 <Grid.Column>
                     {mover.attributes.reputation.review}

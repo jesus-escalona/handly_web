@@ -17,7 +17,7 @@ class Home extends Component {
     estimateHandler = (e) => {
         e.preventDefault();
         const { origin, destination, moveType } = this.props;
-        if (moveType.length && Object.keys(origin).length && Object.keys(destination).length) {
+        if (moveType && Object.keys(origin).length && Object.keys(destination).length) {
             this.setState({ loading: true });
 
             const moveObj = {

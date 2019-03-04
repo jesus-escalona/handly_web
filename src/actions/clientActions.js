@@ -39,4 +39,11 @@ export const setEstimateData = (movingEstimate) => (
         type: 'SET_ESTIMATE_DATA',
         payload: movingEstimate
     }
+);
+
+export const setMoveTypes = (moveTypes) => (
+    {
+        type: 'SET_MOVE_TYPES',
+        payload: moveTypes
+    }
 )

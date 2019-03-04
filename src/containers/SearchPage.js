@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Grid, Header, Segment } from "semantic-ui-react";
+import {Button, Grid, Header, Segment} from "semantic-ui-react";
 import {connect} from "react-redux";
 import SearchPlaces from "../components/SearchPlaces";
 import MoverRow from "../components/MoverRow";
@@ -27,6 +27,17 @@ class SearchPage extends Component {
                             <Grid.Column width={5}>
                                 <Header floated='left' as='h3' content='Move Type:'/>
                                 <MoveType />
+                            </Grid.Column>
+                            <Grid.Column width={3}>
+                                <Header floated='left' as='h3' content='Search Again'/>
+                                <Button
+                                    onClick={this.estimateHandler}
+                                    fluid
+                                    className='estimate'
+                                    size='small'
+                                >
+                                    Search
+                                </Button>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
