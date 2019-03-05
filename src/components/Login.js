@@ -33,7 +33,8 @@ class Login extends Component {
                     <Message.Header>{message}</Message.Header>
                 </Message>
             )
-        )
+        );
+
         return (
             <Modal centered size="tiny" trigger={<Button className='login' >Log in</Button>} onClose={this.handleClose}>
                 <Modal.Header>

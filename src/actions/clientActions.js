@@ -46,4 +46,11 @@ export const setMoveTypes = (moveTypes) => (
         type: 'SET_MOVE_TYPES',
         payload: moveTypes
     }
-)
+);
+
+export const setMovingsData = (movings) => (
+    {
+        type: 'SET_MOVINGS_DATA',
+        payload: movings
+    }
+);

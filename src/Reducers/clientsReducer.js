@@ -1,21 +1,20 @@
-import MoveType from "../components/MoveType";
-
 const initialState = {
     user: {},
+    userExists: false,
     movings: [],
     movers: [],
     messages: [],
     origin: {},
     destination: {},
     selectedMoving: {},
-    moveType: '',
+    moveType: 1,
     moveTypes: []
 };
 
 export const clientReducer = (state = initialState, action) => {
     switch (action.type) {
         case "SET_USER_DATA":
-            return { ...state, user: action.payload };
+            return { ...state, user: action.payload, userExists: Object.keys(action.payload).length > 0 };
         case "SET_COMPANIES_DATA":
             return { ...state, movers: action.payload };
         case "SET_MESSAGES":
@@ -30,6 +29,9 @@ export const clientReducer = (state = initialState, action) => {
         case "SET_MOVE_TYPES":
             const moveTypes = action.payload.map(moveType => moveType.attributes);
             return { ...state, moveTypes  };
+        case "SET_MOVINGS_DATA":
+            console.log("here")
+            return { ...state, movings: action.payload  };
         default:
             return {...state}
     }

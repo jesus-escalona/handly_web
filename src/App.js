@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Profile from "./containers/Profile";
 import {getUserData} from "./actions/clientThunks";
 import SearchPage from "./containers/SearchPage";
+import MyMovingsContainer from "./containers/MyMovingsContainer";
 
 class App extends Component {
 
@@ -18,7 +19,7 @@ class App extends Component {
     }
 
     render() {
-        const { user, selectedMoving } = this.props;
+        const { userExists, selectedMoving } = this.props;
         return (
             <div className="App">
                 <NavBar/>
@@ -28,11 +29,15 @@ class App extends Component {
                     )
                     }/>
                     <Route exact path='/profile' render={(routerProps) => (
-                        Object.keys(user).length > 0 ? <Profile { ...routerProps }/> : <Redirect to="/"/>
+                        userExists ? <Profile { ...routerProps }/> : <Redirect to="/"/>
                     )
                     }/>
                     <Route exact path='/search' render={(routerProps) => (
                         Object.keys(selectedMoving).length > 0 ? <SearchPage { ...routerProps }/> : <Redirect to="/"/>
+                    )
+                    }/>
+                    <Route exact path='/mymovings' render={(routerProps) => (
+                        userExists ? <MyMovingsContainer { ...routerProps }/> : <Redirect to="/"/>
                     )
                     }/>
                 </Switch>
@@ -44,8 +49,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => (
     {
-        user: state.user,
-        movers: state.movers,
+        userExists: state.userExists,
         selectedMoving: state.selectedMoving
     }
 );

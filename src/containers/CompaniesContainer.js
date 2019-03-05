@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Header, Grid, Image} from "semantic-ui-react";
-import CompanyPlaceholder from "../components/CompanyPlaceholder";
 
 class CompaniesContainer extends Component {
     render() {

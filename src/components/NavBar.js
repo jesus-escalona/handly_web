@@ -15,8 +15,7 @@ class NavBar extends Component {
     };
 
     render() {
-        const { user } = this.props;
-        const userExists = Object.keys(user).length > 0
+        const { user, userExists } = this.props;
         return (
             <Container fluid className='navbar'>
                     <Menu secondary>
@@ -27,12 +26,12 @@ class NavBar extends Component {
                             <Header as='h2'>
                                 <Link className='brand' to="/">Handly</Link>
                             </Header>
+                            <Link to="/search">search</Link>
                         </Menu.Item>
                         {
                             userExists ?
                                 <Fragment>
                                     <Menu.Item position='right'>
-                                    <Link to="/search">search</Link>
                                         <Image avatar circular size='mini' src={user.attributes.avatar}/>
                                         <Button
                                             floated='right'
@@ -62,7 +61,8 @@ class NavBar extends Component {
 
 const mapStateToProps = (state) => (
     {
-        user: state.user
+        user: state.user,
+        userExists: state.userExists
     }
 );
 

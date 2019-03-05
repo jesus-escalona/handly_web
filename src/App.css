@@ -43,7 +43,7 @@ a.brand {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
 }
 
 .ui.button.estimate {
@@ -82,6 +82,7 @@ a.brand {
 
 a.loggedUserButton {
   color: white;
+  margin-left: 1rem;
 }
 
 .ui.header.heroTitle {
@@ -160,4 +161,14 @@ a.loggedUserButton {
 .ui.transparent.input > input {
   font-size: larger;
   color: gray;
+}
+
+/*Date Pick Modal*/
+
+.ui.center.aligned.container.date {
+  margin-bottom: 2rem;
+}
+
+.ui.header.dir {
+  color: #5A4FF3
 }

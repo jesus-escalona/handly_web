@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Grid, Header, Segment} from "semantic-ui-react";
+import {Button, Grid, Header, Message, Segment} from "semantic-ui-react";
 import {connect} from "react-redux";
 import SearchPlaces from "../components/SearchPlaces";
 import MoverRow from "../components/MoverRow";
@@ -8,8 +8,8 @@ import MoveType from "../components/MoveType";
 
 class SearchPage extends Component {
     render() {
-        const { movers, origin, destination } = this.props;
-        const companies = movers.map( mover => <MoverRow key={mover.id} mover={mover}/>);
+        const { movers, origin, destination, selectedMoving, userExists } = this.props;
+        const companies = movers.map( mover => <MoverRow key={mover.id} mover={mover} moving={selectedMoving}/>);
         return (
             <div>
                 <Header inverted as={'h1'}>Results</Header>
@@ -53,11 +53,12 @@ class SearchPage extends Component {
                         </Grid.Column>
                         <Grid.Column>
                             <Header inverted as='h2' content='Estimate'/>
+                            {!userExists && <Message negative header='Please log in to book'/>}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
                 <Segment>
-                    <Grid>
+                    <Grid textAlign='center'>
                         {companies}
                     </Grid>
                 </Segment>
@@ -71,7 +72,9 @@ const mapStateToProps = (state) => (
         user: state.user,
         movers: state.movers,
         origin: state.origin,
-        destination: state.destination
+        destination: state.destination,
+        selectedMoving: state.selectedMoving,
+        userExists: state.userExists
     }
 );
 

@@ -6,7 +6,12 @@ import {getMoveTypes} from "../actions/clientThunks";
 
 class MoveType extends Component {
 
+    state = {
+        icon: 'dolly'
+    }
+
     handleDropdown = (e, data) => {
+        this.setState({icon: data.options[data.value - 1].icon})
         this.props.setMoveTypeData(data.value)
     };
 
@@ -24,7 +29,7 @@ class MoveType extends Component {
                 placeholder='Number of items to handle'
                 labeled
                 button
-                icon='truck'
+                icon={this.state.icon}
                 selection
                 value={this.props.moveType}
                 options={this.props.moveTypes}
