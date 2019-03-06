@@ -33,6 +33,10 @@ export const getMoveTypes = () => {
     return dispatch => getData.get('move_types').then(data => dispatch(setMoveTypes(data.move_types.data)))
 };
 
+export const patchRating = (obj, token, id) => {
+    return dispatch => getData.patch(`movings/${id}`, token, obj).then(console.log)
+};
+
 export const createMoving = (movingObj, token) => {
     return dispatch => getData.post('movings', token, movingObj).then(data => {
         if (data.hasOwnProperty('error')) {

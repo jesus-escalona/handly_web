@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
-import {Button, Container, Image, Menu, Header} from 'semantic-ui-react'
+import {Button, Container, Image, Menu, Header, Dropdown} from 'semantic-ui-react'
 import Login from "./Login";
 import SignUp from "./SignUp";
 import {setUserData} from "../actions/clientActions";
@@ -26,18 +26,18 @@ class NavBar extends Component {
                             <Header as='h2'>
                                 <Link className='brand' to="/">Handly</Link>
                             </Header>
-                            <Link to="/search">search</Link>
                         </Menu.Item>
                         {
                             userExists ?
                                 <Fragment>
                                     <Menu.Item position='right'>
                                         <Image avatar circular size='mini' src={user.attributes.avatar}/>
-                                        <Button
-                                            floated='right'
-                                            content={<Link className='loggedUserButton' to="/profile">{`Hello, ${user.attributes.name}`}</Link>}
-                                            labelPosition='left'
-                                        />
+                                        <Dropdown className='estimate' text={`Hello, ${user.attributes.name}`} floating button>
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item onClick={() => this.props.history.push('/profile')} text='Profile'/>
+                                                <Dropdown.Item onClick={() => this.props.history.push('/mymovings')} text='Movings'/>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
                                     </Menu.Item>
                                     <Menu.Item>
                                         <Button icon='sign-out' floated='right' label='Logout' labelPosition='left' onClick={this.logOut} />
@@ -66,4 +66,4 @@ const mapStateToProps = (state) => (
     }
 );
 
-export default connect(mapStateToProps, {setUserData})(NavBar)
+export default withRouter(connect(mapStateToProps, {setUserData})(NavBar))

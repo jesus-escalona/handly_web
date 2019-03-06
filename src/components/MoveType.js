@@ -7,7 +7,8 @@ import {getMoveTypes} from "../actions/clientThunks";
 class MoveType extends Component {
 
     state = {
-        icon: 'dolly'
+        icon: 'dolly',
+        loading: true
     }
 
     handleDropdown = (e, data) => {
@@ -16,13 +17,13 @@ class MoveType extends Component {
     };
 
     componentDidMount() {
-        this.props.getMoveTypes()
-
+        this.props.getMoveTypes().then(this.setState({loading: false}))
     }
 
     render() {
         return (
             <Dropdown
+                loading={this.state.loading}
                 onChange={this.handleDropdown}
                 fluid
                 className='icon'

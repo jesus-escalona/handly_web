@@ -51,6 +51,10 @@ a.brand {
   color: white;
 }
 
+.ui.header.estimate {
+  color: white;
+}
+
 #video-background {
   /*  making the video fullscreen  */
   width: 2000px;
@@ -61,13 +65,13 @@ a.brand {
   margin-bottom: 4rem;
   position: relative;
   overflow: hidden;
-  height: 600px;
+  height: 700px;
   max-width: 400px;
 }
 
 .ui.fluid.container.options {
   position: absolute;
-  top: 8rem;
+  top: 6rem;
   left: 0;
   right: 0;
   margin-left: auto;
@@ -171,4 +175,8 @@ a.loggedUserButton {
 
 .ui.header.dir {
   color: #5A4FF3
+}
+
+.ui.header.nothing {
+  margin: 4rem;
 }

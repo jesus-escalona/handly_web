@@ -6,6 +6,7 @@ import ReviewsContainer from "./ReviewsContainer";
 import { connect } from 'react-redux'
 import {getEstimate} from "../actions/clientThunks";
 import MoveType from "../components/MoveType";
+import {Menu} from "semantic-ui-react/dist/commonjs/collections/Menu";
 
 class Home extends Component {
 
@@ -59,13 +60,15 @@ class Home extends Component {
                     </video>
                     <Container className='options' fluid>
                         <Header className='heroTitle' as='h1'>Let us handle it</Header>
+                        <Header as='h3' content='Where do you want your things moved?' />
                         <br/>
                         <Grid>
                             <Grid.Column>
-                                <SearchPlaces type='origin' text='From here'/>
+                                <SearchPlaces type='origin' text='From here:'/>
                                 <br/>
-                                <SearchPlaces type='destination' text='To there'/>
+                                <SearchPlaces type='destination' text='To there:'/>
                                 <br/>
+                                <Header as='h3' content='How many items are you looking to move?' />
                                 <MoveType />
                             </Grid.Column>
                         </Grid>
