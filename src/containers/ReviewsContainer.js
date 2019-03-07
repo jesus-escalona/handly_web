@@ -13,7 +13,7 @@ class ReviewsContainer extends Component {
     }
 
     getReviews = () => {
-        return fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews`)
+        return fetch(`${process.env.REACT_APP_BACKEND_URL}/apgit adi/v1/reviews`)
             .then(resp => resp.json())
             .then(data => this.setState({reviews: data.reviews.data}));
     };
