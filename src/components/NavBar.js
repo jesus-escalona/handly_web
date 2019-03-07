@@ -25,7 +25,7 @@ class NavBar extends Component {
                         <Menu.Item>
                             <Header as='h2'>
                                 <Link className='brand' to="/">Handly</Link>
-                                <Link className='brand' to="/search">search</Link>
+                                {/*<Link className='brand' to="/search">search</Link>*/}
                             </Header>
                         </Menu.Item>
                         {
