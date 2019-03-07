@@ -186,3 +186,7 @@ canvas.mapboxgl-canvas {
   left: 0;
   border-radius: .28571429rem;
 }
+
+.ui.label {
+  background-color: transparent;
+}

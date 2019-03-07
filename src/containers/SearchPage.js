@@ -1,18 +1,59 @@
 import React, {Component} from 'react';
-import {Button, Grid, Header, Message, Segment} from "semantic-ui-react";
+import {Button, Dimmer, Grid, Header, Message, Segment} from "semantic-ui-react";
 import {connect} from "react-redux";
 import SearchPlaces from "../components/SearchPlaces";
 import MoverRow from "../components/MoverRow";
 import MoveType from "../components/MoveType";
 import Map from "../components/Map";
+import {getEstimate} from "../actions/clientThunks";
 
 
 class SearchPage extends Component {
+
+    state = {
+        loading: false,
+        error: ''
+    };
+
+    estimateHandler = (e) => {
+        e.preventDefault();
+        const { origin, destination, moveType } = this.props;
+        if (moveType && Object.keys(origin).length && Object.keys(destination).length) {
+            this.setState({ loading: true });
+
+            const moveObj = {
+                origin,
+                destination,
+                move_type: moveType
+            };
+
+            this.props.getEstimate(moveObj)
+                .then(data => {
+                    if(data !== undefined) {
+                        this.setState({error: data.error})
+                    } else {
+                        this.handleHide()
+                    }
+                })
+        }
+    };
+
+    handleHide = () => this.setState({ loading: false, error: '' });
+
     render() {
         const { movers, origin, destination, selectedMoving, userExists } = this.props;
+        const { loading, error } = this.state;
         const companies = movers.map( mover => <MoverRow key={mover.id} mover={mover} moving={selectedMoving}/>);
         return (
             <div>
+                <Dimmer page active={loading} onClickOutside={this.handleHide}>
+                    <Header inverted as={'h1'}>{error || 'Getting you the best prices...'}</Header>
+                    <div className="spinner">
+                        <div className="cube1"/>
+                        <div className="cube2"/>
+                    </div>
+                </Dimmer>
+                <Dimmer.Dimmable dimmed={loading}>
                 <Header inverted as={'h1'}>Results</Header>
                 <Segment>
                     <Grid>
@@ -64,6 +105,7 @@ class SearchPage extends Component {
                         {companies}
                     </Grid>
                 </Segment>
+                </Dimmer.Dimmable>
             </div>
         );
     }
@@ -76,8 +118,9 @@ const mapStateToProps = (state) => (
         origin: state.origin,
         destination: state.destination,
         selectedMoving: state.selectedMoving,
-        userExists: state.userExists
+        userExists: state.userExists,
+        moveType: state.moveType
     }
 );
 
-export default connect(mapStateToProps)(SearchPage);
+export default connect(mapStateToProps, {getEstimate})(SearchPage);

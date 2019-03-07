@@ -30,7 +30,6 @@ export const clientReducer = (state = initialState, action) => {
             const moveTypes = action.payload.map(moveType => moveType.attributes);
             return { ...state, moveTypes  };
         case "SET_MOVINGS_DATA":
-            console.log("here")
             return { ...state, movings: action.payload  };
         default:
             return {...state}
