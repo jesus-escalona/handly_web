@@ -180,3 +180,9 @@ a.loggedUserButton {
 .ui.header.nothing {
   margin: 4rem;
 }
+
+canvas.mapboxgl-canvas {
+  top: 0;
+  left: 0;
+  border-radius: .28571429rem;
+}

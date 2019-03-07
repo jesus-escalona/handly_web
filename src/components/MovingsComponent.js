@@ -19,13 +19,13 @@ class MovingsComponent extends Component {
                         <Grid.Column width={2}>
                             <Header inverted as='h3' content='Move Type'/>
                         </Grid.Column>
-                        <Grid.Column width={2}>
+                        <Grid.Column width={3}>
                             <Header inverted as='h3' content='Rating'/>
                         </Grid.Column>
                         <Grid.Column width={2}>
                             <Header inverted as='h3' content='Price'/>
                         </Grid.Column>
-                        <Grid.Column width={2}>
+                        <Grid.Column width={1}>
                             <Header inverted as='h3' content='Distance'/>
                         </Grid.Column>
                         <Grid.Column width={2}>

@@ -34,7 +34,7 @@ export const getMoveTypes = () => {
 };
 
 export const patchRating = (obj, token, id) => {
-    return dispatch => getData.patch(`movings/${id}`, token, obj).then(console.log)
+    return dispatch => getData.patch(`movings/${id}`, token, obj).then((data) => handleResponse(data, dispatch))
 };
 
 export const createMoving = (movingObj, token) => {

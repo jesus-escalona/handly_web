@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import SearchPlaces from "../components/SearchPlaces";
 import MoverRow from "../components/MoverRow";
 import MoveType from "../components/MoveType";
+import Map from "../components/Map";
 
 
 class SearchPage extends Component {
@@ -42,6 +43,7 @@ class SearchPage extends Component {
                         </Grid.Row>
                     </Grid>
                 </Segment>
+                <Map/>
                 <br/>
                 <Grid>
                     <Grid.Row columns={3}>
