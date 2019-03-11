@@ -1,45 +1,32 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactMapGL, {Marker, Popup} from 'react-map-gl';
 import {connect} from "react-redux";
 import {Container, Header, Icon} from "semantic-ui-react";
 import WebMercatorViewport from 'viewport-mercator-project';
 
-class Map extends Component {
+function Map(props) {
 
-    state = {};
+    const { origin, destination } = props;
 
-    componentDidMount() {
-        this.setViewport()
-    }
+    const initialViewport = new WebMercatorViewport({width: 1000, height: 400})
+        .fitBounds([[origin.latlng.lng, origin.latlng.lat], [destination.latlng.lng, destination.latlng.lat]], {
+            padding: 20,
+            offset: [0, -100]
+        });
 
-    componentDidUpdate(prevProps) {
-        const { origin, destination } = prevProps;
-        if (origin !== this.props.origin || destination !== this.props.destination) {
-            this.setViewport()
-        }
-    }
+    const [viewport, setViewport] = useState({...initialViewport, width: 'auto'});
 
-    setViewport = () => {
-        const { origin, destination } = this.props;
-
-        const viewport = new WebMercatorViewport({width: 1000, height: 400})
-            .fitBounds([[origin.latlng.lng, origin.latlng.lat], [destination.latlng.lng, destination.latlng.lat]], {
-                padding: 20,
-                offset: [0, -100]
-            });
-
-        this.setState({viewport: {...viewport, width: 'auto'}, origin, destination})
-    };
-
-    render() {
-        const { origin, destination } = this.props;
-        return (
+    useEffect(() => {
+        setViewport({...initialViewport, width: 'auto'})
+    }, [origin, destination]);
+    console.log('ds')
+    return (
             <Container fluid>
                 <ReactMapGL
-                    {...this.state.viewport}
+                    {...viewport}
                     mapStyle="mapbox://styles/mapbox/streets-v9"
                     mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
-                    onViewportChange={(viewport) => this.setState({viewport})}
+                    onViewportChange={(viewport) => setViewport({viewport})}
                 >
                     <Marker key={1} latitude={origin.latlng.lat} longitude={origin.latlng.lng} offsetLeft={-12} offsetTop={-20}>
                         <Icon size='large' color='red' name='map pin' />
@@ -56,8 +43,8 @@ class Map extends Component {
                 </ReactMapGL>
             </Container>
         );
-    }
 }
+
 const mapStateToProps = (state) => (
     {
         origin: state.origin,
