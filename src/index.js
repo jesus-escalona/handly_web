@@ -9,8 +9,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {clientReducer} from "./Reducers/clientsReducer";
 
-const store = createStore(clientReducer, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
-
+const store = createStore(clientReducer, compose(applyMiddleware(thunk)));
+// add window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() after apply middleware.
 ReactDOM.render(
     <Provider store={store}>
         <Router>
