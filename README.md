@@ -1,6 +1,6 @@
 # HANDLY SEARCH
 
-Single-Page Web app that helps yoy get an estimate for your relocation needs, and matching you with different moving companies.
+Single-Page Web app that helps you get an estimate for your relocation needs, and matching you with different moving companies.
 
 ## Getting Started
 ```
@@ -23,6 +23,8 @@ End with an example of getting some data out of the system or using it for a lit
 
 * [Create-React-App](https://github.com/facebook/create-react-app) - The web framework used
 * [Yarn](https://yarnpkg.com/lang/en/) - Dependency Management
+* [Redux](https://redux.js.org/) - State Management
+* [Mapbox](https://www.mapbox.com/) - Embed custom maps.
 
 ## Contributing
 
